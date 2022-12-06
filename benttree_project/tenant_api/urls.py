@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import TenantView, AddTenantView
+from .views import TenantList, TenantByName
 
 urlpatterns = [
-    path("", TenantView.as_view()),
-    path("add-tenant", AddTenantView.as_view())
+    path("", TenantList.as_view()),
+    path("by-name/<str:name>", TenantByName.as_view()),
 ]
