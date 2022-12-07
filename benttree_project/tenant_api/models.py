@@ -4,7 +4,7 @@ from django.db import models
 class Tenant(models.Model):
     name = models.CharField(max_length=50, unique=True)
     phone_number = models.CharField(max_length=11, unique=True)
-    apartment_number = models.CharField(max_length=50)
+    apartment_number = models.CharField(max_length=10)
     lease_start = models.DateField()
     lease_end = models.DateField()
     is_renewing = models.BooleanField(default=False)

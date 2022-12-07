@@ -27,3 +27,8 @@ class TenantByName(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
     lookup_field = "name"
+
+class TenantsByApartment(generics.ListAPIView):
+    queryset = Tenant.objects.all()
+    serializer_class = TenantSerializer
+    lookup_field = "apartment_number"
