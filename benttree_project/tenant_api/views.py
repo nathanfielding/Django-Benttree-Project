@@ -1,5 +1,6 @@
 # from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import TenantSerializer
 from .models import Tenant
 
@@ -26,9 +27,14 @@ class TenantList(generics.ListCreateAPIView):
 class TenantByName(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
+
+    #required for when returning a single object of the queryset
     lookup_field = "name"
 
 class TenantsByApartment(generics.ListAPIView):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
-    lookup_field = "apartment_number"
+    
+    # required for when returning a subset of the queryset
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["apartment_number"]
