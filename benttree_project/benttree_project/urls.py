@@ -20,11 +20,16 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #tenant endpoints
     path("tenants/", TenantList.as_view()),
     path("tenants/by-name/<str:name>", TenantByName.as_view()),
     path("tenants/by-apartment/", TenantsByApartment.as_view()),
+
+    #apartment endpoints
     path("apartments/", ApartmentList.as_view()),
-    # path("by-lease-end/", TenantsByLeaseEnd.as_view()) # ex: by-lease-end/?lease_end=2023-01-01
+    path("apartments/by-number/<str:number>", ApartmentByNumber.as_view()),
+    path("apartments/by-date-available/", ApartmentsByAvailableDate.as_view()) # ex: by-date-available/?date_available=2023-06-05
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

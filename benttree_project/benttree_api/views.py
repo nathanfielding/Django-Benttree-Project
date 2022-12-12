@@ -27,17 +27,23 @@ class ApartmentList(generics.ListCreateAPIView):
     queryset = Apartment.objects.all()
     serializer_class = ApartmentSerializer
 
+class ApartmentByNumber(generics.RetrieveDestroyAPIView):
+    queryset = Apartment.objects.all()
+    serializer_class = ApartmentSerializer
 
-# class LeaseEndFilterSet(FilterSet):
-#     lease_end = DateFilter(field_name="lease_end", lookup_expr="gt")
-#     class Meta:
-#         model = Tenant
-#         fields = ["lease_end"]
+    lookup_field = "number"
 
 
-# class TenantsByLeaseEnd(generics.ListAPIView):
-#     queryset = Tenant.objects.filter(is_renewing=False)
-#     serializer_class = TenantSerializer
+class AvailableDateFilterSet(FilterSet):
+    date_available = DateFilter(field_name="date_available", lookup_expr="gte")
+    class Meta:
+        model = Apartment
+        fields = ["date_available"]
 
-#     filter_backends = [DjangoFilterBackend]
-#     filterset_class = LeaseEndFilterSet
+
+class ApartmentsByAvailableDate(generics.ListAPIView):
+    queryset = Apartment.objects.all()
+    serializer_class = ApartmentSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = AvailableDateFilterSet
