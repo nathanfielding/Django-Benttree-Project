@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tenant_api', '0001_initial'),
+        ('benttree_api', '0001_initial'),
     ]
 
     operations = [
@@ -27,10 +27,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name='tenant',
-            name='id',
-        ),
-        migrations.RemoveField(
-            model_name='tenant',
             name='lease_end',
         ),
         migrations.RemoveField(
@@ -44,17 +40,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='tenant',
-            name='name',
-            field=models.CharField(max_length=50, primary_key=True, serialize=False, unique=True),
-        ),
-        migrations.AlterField(
-            model_name='tenant',
             name='phone_number',
             field=models.CharField(max_length=13, unique=True),
         ),
         migrations.AddField(
             model_name='tenant',
             name='apartment',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='tenant_api.apartment'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='benttree_api.apartment'),
         ),
     ]

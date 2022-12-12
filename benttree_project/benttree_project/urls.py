@@ -14,12 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from benttree_api.views import *
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("tenants/", include("tenant_api.urls"))
+    path("tenants/", TenantList.as_view()),
+    path("tenants/by-name/<str:name>", TenantByName.as_view()),
+    path("tenants/by-apartment/", TenantsByApartment.as_view()),
+    path("apartments/", ApartmentList.as_view()),
+    # path("by-lease-end/", TenantsByLeaseEnd.as_view()) # ex: by-lease-end/?lease_end=2023-01-01
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

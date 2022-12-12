@@ -1,7 +1,7 @@
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, DateFilter
-from .serializers import TenantSerializer
-from .models import Tenant
+from .serializers import TenantSerializer, ApartmentSerializer
+from .models import Tenant, Apartment
 
 class TenantList(generics.ListCreateAPIView):
     queryset = Tenant.objects.all()
@@ -23,14 +23,21 @@ class TenantsByApartment(generics.ListAPIView):
     filterset_fields = ["apartment_number"]
 
 
-class LeaseEndFilterSet(FilterSet):
-    lease_end = DateFilter(field_name="lease_end", lookup_expr="gt")
-    class Meta:
-        model = Tenant
-        fields = ["lease_end"]
-class TenantsByLeaseEnd(generics.ListAPIView):
-    queryset = Tenant.objects.filter(is_renewing=False)
-    serializer_class = TenantSerializer
+class ApartmentList(generics.ListCreateAPIView):
+    queryset = Apartment.objects.all()
+    serializer_class = ApartmentSerializer
 
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = LeaseEndFilterSet
+
+# class LeaseEndFilterSet(FilterSet):
+#     lease_end = DateFilter(field_name="lease_end", lookup_expr="gt")
+#     class Meta:
+#         model = Tenant
+#         fields = ["lease_end"]
+
+
+# class TenantsByLeaseEnd(generics.ListAPIView):
+#     queryset = Tenant.objects.filter(is_renewing=False)
+#     serializer_class = TenantSerializer
+
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_class = LeaseEndFilterSet

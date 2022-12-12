@@ -7,7 +7,7 @@ class Apartment(models.Model):
     date_available = models.DateField(null=True)
 
 class Tenant(models.Model):
-    name = models.CharField(max_length=50, unique=True, primary_key=True)
+    name = models.CharField(max_length=50, unique=True)
     email = models.EmailField(default="@gmail.com")
     phone_number = models.CharField(max_length=13, unique=True)
     apartment = models.ForeignKey(Apartment, on_delete=models.PROTECT, null=True)
