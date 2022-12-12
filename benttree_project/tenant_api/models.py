@@ -1,11 +1,15 @@
 from django.db import models
-#from phonenumber_field.modelfields import PhoneNumberField
+
+class Apartment(models.Model):
+    number = models.CharField(max_length=7)
+    property = models.CharField(max_length=25)
+    occupants = models.IntegerField()
+    date_available = models.DateField(null=True)
 
 class Tenant(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    phone_number = models.CharField(max_length=11, unique=True)
-    apartment_number = models.CharField(max_length=10)
-    lease_start = models.DateField()
-    lease_end = models.DateField()
+    name = models.CharField(max_length=50, unique=True, primary_key=True)
+    email = models.EmailField(default="@gmail.com")
+    phone_number = models.CharField(max_length=13, unique=True)
+    apartment = models.ForeignKey(Apartment, on_delete=models.PROTECT, null=True)
     is_renewing = models.BooleanField(default=False)
     copy_of_lease = models.FileField(upload_to="leases")
