@@ -24,7 +24,7 @@ class TenantsByApartment(generics.ListAPIView):
 
 
 class ApartmentList(generics.ListCreateAPIView):
-    queryset = Apartment.objects.all()
+    queryset = Apartment.objects.all().order_by("number")
     serializer_class = ApartmentSerializer
 
 class ApartmentByNumber(generics.RetrieveDestroyAPIView):

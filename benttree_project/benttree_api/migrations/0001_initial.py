@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('lease_start', models.DateField()),
                 ('lease_end', models.DateField()),
                 ('is_renewing', models.BooleanField(default=False)),
-                ('copy_of_lease', models.FileField(upload_to='leases')),
+                ('copy_of_lease', models.FileField(upload_to='leases', null=True)),
             ],
         ),
     ]
