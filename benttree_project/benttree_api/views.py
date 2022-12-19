@@ -1,5 +1,5 @@
 from rest_framework import generics
-from django_filters.rest_framework import DjangoFilterBackend, FilterSet, DateFilter
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet, DateFilter, ModelChoiceFilter
 from .serializers import TenantSerializer, ApartmentSerializer
 from .models import Tenant, Apartment
 
@@ -14,13 +14,18 @@ class TenantByName(generics.RetrieveUpdateDestroyAPIView):
     #required for when returning a single object of the queryset
     lookup_field = "name"
 
+class ApartmentNumberFilter(FilterSet):
+    apartment = ModelChoiceFilter(queryset=Apartment.objects.all())
+    class Meta:
+        model = Tenant
+        fields = ["apartment"]
 class TenantsByApartment(generics.ListAPIView):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
     
     # required for when returning a subset of the queryset
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["apartment_number"]
+    filterset_class = ApartmentNumberFilter
 
 
 class ApartmentList(generics.ListCreateAPIView):
@@ -34,7 +39,7 @@ class ApartmentByNumber(generics.RetrieveDestroyAPIView):
     lookup_field = "number"
 
 
-class AvailableDateFilterSet(FilterSet):
+class AvailableDateFilter(FilterSet):
     date_available = DateFilter(field_name="date_available", lookup_expr="gte")
     class Meta:
         model = Apartment
@@ -46,4 +51,4 @@ class ApartmentsByAvailableDate(generics.ListAPIView):
     serializer_class = ApartmentSerializer
 
     filter_backends = [DjangoFilterBackend]
-    filterset_class = AvailableDateFilterSet
+    filterset_class = AvailableDateFilter
