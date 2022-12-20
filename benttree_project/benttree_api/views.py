@@ -18,7 +18,7 @@ class ApartmentNumberFilter(FilterSet):
     apartment = ModelChoiceFilter(queryset=Apartment.objects.all())
     class Meta:
         model = Tenant
-        fields = ["apartment"]
+        fields = ["apartment__number"]
 class TenantsByApartment(generics.ListAPIView):
     queryset = Tenant.objects.all()
     serializer_class = TenantSerializer
@@ -40,7 +40,7 @@ class ApartmentByNumber(generics.RetrieveDestroyAPIView):
 
 
 class AvailableDateFilter(FilterSet):
-    date_available = DateFilter(field_name="date_available", lookup_expr="gte")
+    date_available = DateFilter(field_name="date_available", lookup_expr="lte")
     class Meta:
         model = Apartment
         fields = ["date_available"]

@@ -24,7 +24,7 @@ urlpatterns = [
     #tenant endpoints
     path("tenants/", TenantList.as_view()),
     path("tenants/by-name/<str:name>", TenantByName.as_view()),
-    path("tenants/by-apartment/", TenantsByApartment.as_view()),
+    path("tenants/by-apartment/", TenantsByApartment.as_view()), #ex: by-apartment/?apartment__number=101
 
     #apartment endpoints
     path("apartments/", ApartmentList.as_view()),
